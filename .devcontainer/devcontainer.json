@@ -1,0 +1,29 @@
+{
+	"$schema":"http://json-schema.org/draft-07/schema",
+	"name": "Rust axum todo",
+
+	"dockerComposeFile": ["../docker-compose.dev.yml", "docker-compose.yml"],
+
+	"service": "axum_todo",
+
+	"workspaceFolder": "${localEnv:APP_EARTH_PATH}/${localEnv:APP_NAME}",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode-remote.remote-containers",
+				"dunstontc.viml",
+				"vscodevim.vim",
+				"rust-lang.rust-analyzer",
+				"vadimcn.vscode-lldb",
+				"panicbit.cargo"
+			]
+		}
+	},
+	"containerUser": "${localEnv:UNAME}",
+	// the second priority DOCKER_HOST "dockerHost": "ssh://$USER@localhost:$SSH_PORT",
+	"runArgs": ["-it", "-p", "${localEnv:HOST_PORT}:3000"],
+	"settings": {
+		"forwardPorts": ["${localEnv:HOST_PORT}:3000"]
+	}
+	// "appPort": 3000
+}

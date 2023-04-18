@@ -1,0 +1,6 @@
+version: '3.2'
+
+services:
+  axum_todo:
+
+    command: /bin/bash -c "while sleep 1000; do :; done"

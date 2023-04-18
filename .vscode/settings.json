@@ -1,0 +1,57 @@
+{
+    "$schema":"http://json-schema.org/draft-07/schema",
+    "cSpell.words": [
+        "BUILDKIT",
+        "devcontainer",
+        "dunstontc",
+        "Munetaka",
+        "Murakami",
+        "oneshot",
+        "rustup",
+        "Takeshi",
+        "vadimcn",
+        "viml",
+        "vscodevim"
+    ],
+    // the fourth priority DOCKER_HOST
+    // "docker.environment":{
+        // "DOCKER_HOST": "ssh://<username>@127.0.0.1:22222",
+        // "DOCKER_CONTEXT": "default",
+        // "SSH_KEY_PATH": "~/.lima/_config/user"
+    // },
+    "devcontainer.logging": "trace",
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j","j"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>","d"],
+            "after": ["d","d"]
+        },
+        {
+            "before": ["<C-n>"],
+            "commands": [":nohl"]
+        },
+        {
+            "before": ["K"],
+            "commands": ["lineBreakInsert"],
+            "silent": true
+        }
+    ],
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false
+    },
+    "rust-analyzer.linkedProjects": [
+        "./axum_todo/Cargo.toml"
+    ]
+}

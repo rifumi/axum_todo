@@ -1,0 +1,7 @@
+{
+    "cmake.configureOnOpen": false,
+    "rust-client.rustupPath": "rustup",
+    "rust-analyzer.linkedProjects": [
+        "./Cargo.toml"
+    ]
+}
