@@ -4,6 +4,18 @@
         {
             "name": "Cargo launch",
             "type": "lldb",
+            "preLaunchTask": "killPort",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/axum_todo",
+            "args": [],
+            "internalConsoleOptions": "openOnSessionStart",
+            "initCommands": [
+                "settings set target.disable-aslr false"
+            ]
+        },
+        {
+            "name": "Cargo build & launch",
+            "type": "lldb",
             "request": "launch",
             "cargo": {
                 "args": [
@@ -17,7 +29,7 @@
             ]
         },
         {
-            "name": "Cargo test",
+            "name": "test Cargo",
             "type": "lldb",
             "request": "launch",
             "cargo": {

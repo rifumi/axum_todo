@@ -75,6 +75,11 @@
             "runOptions": {
                 "runOn": "default"
             }
+        },
+        {
+            "label": "killPort",
+            "type": "shell",
+            "command": "lsof -i :3000 | awk '/LISTEN/ { print $2 }' | xargs kill 2>/dev/null || true"
         }
     ]
 }

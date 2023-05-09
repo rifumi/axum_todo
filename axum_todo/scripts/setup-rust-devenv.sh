@@ -28,3 +28,5 @@ cd $EARTH_PATH
 if [ ! -d $APP_ROOT_PATH ];then
   cargo new $APP_NAME
 fi
+rustup component add clippy
+rustup component add rustfmt

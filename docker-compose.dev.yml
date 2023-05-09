@@ -22,6 +22,7 @@ services:
     user: "${USER_ID}:${GID}"
     environment:
       - RUST_LOG=debug
+      - TZ=Asia/Tokyo
     # the third priority DOCKER_HOST
     # environment:
       # - DOCKER_HOST=ssh://${UNAME}@localhost:${SSH_PORT}
