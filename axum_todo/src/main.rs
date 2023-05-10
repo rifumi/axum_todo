@@ -111,6 +111,35 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn test_created_todo_validation_max() {
+        let expected = "Over text length";
+        let repository = TodoRepositoryForMemory::new();
+        let req = build_todo_req_with_json(
+            "/todos",
+            Method::POST,
+            r#"{ "text": "12345678901234567890123456789012345678901234567890123456789012345" }"#
+                .to_string(),
+        );
+        let res = create_app(repository).oneshot(req).await.unwrap();
+        let res_to_str = res_to_str(res).await;
+        let res_str = res_to_str.as_str();
+        dbg!(res_str);
+        assert_eq!(true, res_str.contains(expected));
+    }
+
+    #[tokio::test]
+    async fn test_created_todo_validation_min() {
+        let expected = "Can not be empty";
+        let repository = TodoRepositoryForMemory::new();
+        let req = build_todo_req_with_json("/todos", Method::POST, r#"{ "text": "" }"#.to_string());
+        let res = create_app(repository).oneshot(req).await.unwrap();
+        let res_to_str = res_to_str(res).await;
+        let res_str = res_to_str.as_str();
+        dbg!(res_str);
+        assert_eq!(true, res_str.contains(expected));
+    }
+
+    #[tokio::test]
     async fn should_find_todo() {
         let expected = Todo::new(1, "should_find_todo".to_string());
         let repository = TodoRepositoryForMemory::new();
@@ -154,6 +183,38 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn test_update_todo_validation_max() {
+        let expected = "Over text length";
+        let repository = TodoRepositoryForMemory::new();
+        repository.create(CreateTodo::new("before_update_todo".to_string()));
+        let req = build_todo_req_with_json(
+            "/todos/1",
+            Method::PATCH,
+            r#"{ "text": "12345678901234567890123456789012345678901234567890123456789012345" }"#
+                .to_string(),
+        );
+        let res = create_app(repository).oneshot(req).await.unwrap();
+        let res_to_str = res_to_str(res).await;
+        let res_str = res_to_str.as_str();
+        dbg!(res_str);
+        assert_eq!(true, res_str.contains(expected));
+    }
+
+    #[tokio::test]
+    async fn test_update_todo_validation_min() {
+        let expected = "Can not be empty";
+        let repository = TodoRepositoryForMemory::new();
+        repository.create(CreateTodo::new("before_update_todo".to_string()));
+        let req =
+            build_todo_req_with_json("/todos/1", Method::PATCH, r#"{ "text": "" }"#.to_string());
+        let res = create_app(repository).oneshot(req).await.unwrap();
+        let res_to_str = res_to_str(res).await;
+        let res_str = res_to_str.as_str();
+        dbg!(res_str);
+        assert_eq!(true, res_str.contains(expected));
+    }
+
+    #[tokio::test]
     async fn should_delete_todo() {
         let repository = TodoRepositoryForMemory::new();
         repository.create(CreateTodo::new("should_delete_todo".to_string()));
@@ -188,5 +249,12 @@ mod tests {
         let todo: Todo = serde_json::from_str(&body)
             .expect(&format!("cannot convert Todo instance. body:{}", body));
         todo
+    }
+
+    /// Convert type Response to String
+    async fn res_to_str(res: Response) -> String {
+        let bytes = hyper::body::to_bytes(res.into_body()).await.unwrap();
+        let body: String = String::from_utf8(bytes.to_vec()).unwrap();
+        body
     }
 }

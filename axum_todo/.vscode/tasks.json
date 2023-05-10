@@ -80,6 +80,19 @@
             "label": "killPort",
             "type": "shell",
             "command": "lsof -i :3000 | awk '/LISTEN/ { print $2 }' | xargs kill 2>/dev/null || true"
+        },
+        {
+            "label": "format",
+            "type": "shell",
+            "command": "cargo fmt --all"
+        },
+        {
+            "label": "formatAndBuild",
+            "dependsOn": [
+                "format",
+                "build"
+            ],
+            "problemMatcher": []
         }
     ]
 }

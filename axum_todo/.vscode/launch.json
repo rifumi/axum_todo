@@ -17,11 +17,8 @@
             "name": "Cargo build & launch",
             "type": "lldb",
             "request": "launch",
-            "cargo": {
-                "args": [
-                    "build",
-                ]
-            },
+            "program": "${workspaceFolder}/target/debug/axum_todo",
+            "preLaunchTask": "formatAndBuild",
             "args": [],
             "internalConsoleOptions": "openOnSessionStart",
             "initCommands": [
@@ -39,7 +36,7 @@
                 ]
             },
             "args": [],
-            "preLaunchTask": "build",
+            "preLaunchTask": "formatAndBuild",
             "initCommands": [
                 "settings set target.disable-aslr false"
             ]
@@ -48,7 +45,7 @@
             "name": "Launch lldb",
             "type": "lldb",
             "request": "launch",
-            "program": "${workspaceFolder}/target/debug/${workspaceFolderBasename}",
+            "program": "${workspaceFolder}/target/debug/axum_todo",
             "initCommands": [
                 "settings set target.disable-aslr false"
             ]

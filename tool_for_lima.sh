@@ -95,12 +95,21 @@ elif [ "$1" == "test" ] && [ "$2" == "todos" ] && [ "$3" == "delete" ] && [ -n "
   exit 0;
 fi
 
-if [ "$2" == "/bin/bash" ];then
-  real_c_name=$(docker ps --format "{{.Names}}" | grep "$APP_NAME")
+if [ "$1" == "/bin/bash" ];then
+  real_c_name=$(docker ps --format "{{.Names}}" | grep "$APP_NAME" | head -n 1)
   if [ -z "$real_c_name" ];then
     echo "starting container not found."
     exit 1
   fi
   echo "$@"
   docker container exec -it $real_c_name $@
+elif [ "$1" == "log" ];then
+  real_c_name=$(docker ps --format "{{.Names}}" | grep "$APP_NAME" | head -n 1)
+  if [ -z "$real_c_name" ];then
+    echo "starting container not found."
+    exit 1
+  fi
+  echo "\$APP_NAME:$APP_NAME"
+  echo "\$real_c_name:$real_c_name"
+  docker container logs $real_c_name
 fi
